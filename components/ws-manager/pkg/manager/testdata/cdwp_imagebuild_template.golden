@@ -229,6 +229,7 @@
             "dnsPolicy": "None",
             "serviceAccountName": "workspace",
             "automountServiceAccountToken": false,
+            "securityContext": {},
             "imagePullSecrets": [
                 {
                     "name": "dockerhub-gitpod"

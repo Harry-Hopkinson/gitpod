@@ -58,6 +58,8 @@ func (v version) Defaults(in interface{}) error {
 	cfg.Workspace.Runtime.ContainerDSocket = "/run/containerd/containerd.sock"
 	cfg.Workspace.Runtime.ContainerDRuntimeDir = "/var/lib/containerd/io.containerd.runtime.v2.task/k8s.io"
 	cfg.Workspace.MaxLifetime = util.Duration(36 * time.Hour)
+	cfg.Workspace.PVCSize = "30Gi"
+	cfg.Workspace.PVCStorageClass = "csi-gce-pd"
 	cfg.OpenVSX.URL = "https://open-vsx.org"
 	cfg.DisableDefinitelyGP = true
 
@@ -235,6 +237,12 @@ type Workspace struct {
 	Runtime   WorkspaceRuntime    `json:"runtime" validate:"required"`
 	Resources Resources           `json:"resources" validate:"required"`
 	Templates *WorkspaceTemplates `json:"templates,omitempty"`
+
+	// PVCSize is a size of persistent volume claim to use when creating workspace
+	PVCSize string `json:"pvcSize" validate:"required"`
+
+	// PVCStorageClass is a storage class of persistent volume claim to use when creating workspace
+	PVCStorageClass string `json:"pvcStorageClass" validate:"required"`
 
 	// MaxLifetime is the maximum time a workspace is allowed to run. After that, the workspace times out despite activity
 	MaxLifetime util.Duration `json:"maxLifetime" validate:"required"`
