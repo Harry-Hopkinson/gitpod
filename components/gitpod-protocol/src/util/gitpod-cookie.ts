@@ -3,6 +3,7 @@
  * Licensed under the GNU Affero General Public License (AGPL).
  * See License-AGPL.txt in the project root for license information.
  */
+
 import * as cookie from "cookie";
 
 /**
@@ -28,8 +29,8 @@ export function options(domain: string): cookie.CookieSerializeOptions {
     };
 }
 
-export function generateCookie(domain: string): string {
-    return cookie.serialize(NAME, VALUE, options(domain));
+export function generateCookie(name: string, value: any, domain: string): string {
+    return cookie.serialize(name, value, options(domain));
 }
 
 export function isPresent(cookies: string): boolean {

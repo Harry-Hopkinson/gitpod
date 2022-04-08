@@ -22,6 +22,7 @@ import fresh from "./images/welcome/fresh.svg";
 import prebuild from "./images/welcome/prebuild.svg";
 import exclamation from "./images/exclamation.svg";
 import { getURLHash } from "./App";
+import { COOKIE_NAME } from "./consent-cookie";
 
 function Item(props: { icon: string; iconSize?: string; text: string }) {
     const iconSize = props.iconSize || 28;
@@ -34,7 +35,13 @@ function Item(props: { icon: string; iconSize?: string; text: string }) {
 }
 
 export function markLoggedIn() {
-    document.cookie = GitpodCookie.generateCookie(window.location.hostname);
+    document.cookie = GitpodCookie.generateCookie(GitpodCookie.NAME, GitpodCookie.VALUE, window.location.hostname);
+    // setting document.cookie more than once doesn't replace, only appends
+    document.cookie = GitpodCookie.generateCookie(
+        COOKIE_NAME,
+        JSON.stringify({ necessary: true }),
+        window.location.hostname,
+    );
 }
 
 export function hasLoggedInBefore() {
@@ -248,15 +255,6 @@ export function Login() {
                             >
                                 terms of service
                             </a>{" "}
-                            and{" "}
-                            <a
-                                className="gp-link hover:text-gray-600"
-                                target="gitpod-privacy"
-                                href="https://www.gitpod.io/privacy/"
-                            >
-                                privacy policy
-                            </a>
-                            .
                         </span>
                     </div>
                 </div>
