@@ -32,9 +32,10 @@ func configmap(ctx *common.RenderContext) ([]runtime.Object, error) {
 		license = licenseFilePath
 	}
 
-	workspaceImage := common.ImageName(common.ThirdPartyContainerRepo(ctx.Config.Repository, ""), workspace.DefaultWorkspaceImage, workspace.DefaultWorkspaceImageVersion)
+	workspaceImage := common.ImageName(common.ThirdPartyContainerRepo(ctx.Config.Repository, ""), workspace.DefaultWorkspaceImage, workspace.DefaultWorkspaceImageVersion, &ctx.Config)
 	_ = ctx.WithExperimental(func(cfg *experimental.Config) error {
 		if cfg.WebApp != nil && cfg.WebApp.Server != nil && cfg.WebApp.Server.WorkspaceDefaults.WorkspaceImage != "" {
+			// @todo(sje): this may not be picked up by an airgapped installation
 			workspaceImage = cfg.WebApp.Server.WorkspaceDefaults.WorkspaceImage
 		}
 		return nil

@@ -71,11 +71,11 @@ func configmap(ctx *common.RenderContext) ([]runtime.Object, error) {
 			RequireAuth: false,
 			StaticLayer: []regfac.StaticLayerCfg{
 				{
-					Ref:  common.ImageName(ctx.Config.Repository, WorkspacekitImage, ctx.VersionManifest.Components.Workspace.Workspacekit.Version),
+					Ref:  common.ImageName(ctx.Config.Repository, WorkspacekitImage, ctx.VersionManifest.Components.Workspace.Workspacekit.Version, &ctx.Config),
 					Type: "image",
 				},
 				{
-					Ref:  common.ImageName(ctx.Config.Repository, DockerUpImage, ctx.VersionManifest.Components.Workspace.DockerUp.Version),
+					Ref:  common.ImageName(ctx.Config.Repository, DockerUpImage, ctx.VersionManifest.Components.Workspace.DockerUp.Version, &ctx.Config),
 					Type: "image",
 				},
 			},
