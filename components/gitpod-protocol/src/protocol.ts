@@ -1153,12 +1153,6 @@ export interface AuthProviderInfo {
     };
 }
 
-export namespace AuthProviderInfo {
-    export function isGitHubEnterprise(info?: AuthProviderInfo): boolean {
-        return !!info && info.authProviderType === "GitHub" && info.host !== "github.com";
-    }
-}
-
 export interface AuthProviderEntry {
     readonly id: string;
     readonly type: AuthProviderEntry.Type;
