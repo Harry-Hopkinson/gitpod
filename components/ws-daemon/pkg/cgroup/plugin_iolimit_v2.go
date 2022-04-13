@@ -65,13 +65,21 @@ func (c *IOLimiterV2) writeIOMax(loc string) error {
 	if err != nil {
 		return err
 	}
+
+	var classesToLimit = []string{"8", "9"}
+
 	var devs []string
 	for _, line := range strings.Split(string(iostat), "\n") {
 		fields := strings.Fields(line)
 		if len(fields) < 1 {
 			continue
 		}
-		devs = append(devs, fields[0])
+
+		for _, class := range classesToLimit {
+			if strings.HasPrefix(fields[0], fmt.Sprintf("%v:", class)) {
+				devs = append(devs, fields[0])
+			}
+		}
 	}
 
 	cpuMaxPath := filepath.Join(string(loc), "io.max")
