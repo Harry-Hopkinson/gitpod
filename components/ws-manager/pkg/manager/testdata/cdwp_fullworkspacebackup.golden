@@ -36,7 +36,7 @@
             },
             "finalizers": [
                 "gitpod.io/finalizer",
-                "donotdeleteme"
+                "gitpod.io/donotdelete"
             ]
         },
         "spec": {
