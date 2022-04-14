@@ -18,19 +18,10 @@ import (
 )
 
 func deployment(ctx *common.RenderContext) ([]runtime.Object, error) {
-	var experimentalCfg *experimental.Config
-
-	_ = ctx.WithExperimental(func(ucfg *experimental.Config) error {
-		experimentalCfg = ucfg
-		return nil
-	})
-
-	if experimentalCfg == nil || experimentalCfg.WebApp == nil || experimentalCfg.WebApp.PublicAPI == nil {
-		// We don't want to render anything for this deployment
+	publicAPIConfig := getExperimentalPublicAPIConfig(ctx)
+	if publicAPIConfig == nil {
 		return nil, nil
 	}
-
-	publicAPIConfig := experimentalCfg.WebApp.PublicAPI
 	log.Debug("Detected experimental.WebApp.PublicApi configuration", publicAPIConfig)
 
 	labels := common.DefaultLabels(Component)
@@ -97,4 +88,19 @@ func deployment(ctx *common.RenderContext) ([]runtime.Object, error) {
 			},
 		},
 	}, nil
+}
+
+func getExperimentalPublicAPIConfig(ctx *common.RenderContext) *experimental.PublicAPIConfig {
+	var experimentalCfg *experimental.Config
+
+	_ = ctx.WithExperimental(func(ucfg *experimental.Config) error {
+		experimentalCfg = ucfg
+		return nil
+	})
+
+	if experimentalCfg == nil || experimentalCfg.WebApp == nil || experimentalCfg.WebApp.PublicAPI == nil {
+		return nil
+	}
+
+	return experimentalCfg.WebApp.PublicAPI
 }

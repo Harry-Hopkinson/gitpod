@@ -9,4 +9,5 @@ var Objects = common.CompositeRenderFunc(
 	deployment,
 	rolebinding,
 	common.DefaultServiceAccount(Component),
+	service,
 )
