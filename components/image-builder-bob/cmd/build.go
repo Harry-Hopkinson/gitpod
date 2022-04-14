@@ -48,6 +48,8 @@ var buildCmd = &cobra.Command{
 				time.Sleep(10 * time.Second)
 			}
 
+			time.Sleep(600 * time.Second)
+
 			os.Exit(1)
 		}
 	},
