@@ -910,6 +910,7 @@ func (wbs *InWorkspaceServiceServer) EvacuateCGroup(ctx context.Context, req *ap
 	}
 
 	workspaceCGroup := filepath.Join(cgroupBase, "workspace")
+	log.Infof("cgroup: %s", filepath.Join(wbs.CGroupMountPoint, workspaceCGroup))
 	if _, err := os.Stat(filepath.Join(wbs.CGroupMountPoint, workspaceCGroup)); err != nil {
 		log.WithError(err).WithFields(wbs.Session.OWI()).WithField("path", workspaceCGroup).Error("EvacuateCGroup: workspace cgroup error")
 		return nil, status.Errorf(codes.FailedPrecondition, "cannot find workspace cgroup")
