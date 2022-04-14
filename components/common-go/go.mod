@@ -28,7 +28,6 @@ require (
 )
 
 require (
-	github.com/go-chi/chi/v5 v5.0.7
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
 	github.com/stretchr/testify v1.7.0
 )
