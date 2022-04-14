@@ -13,7 +13,6 @@ import (
 )
 
 func TestMarkWorkspace(t *testing.T) {
-	t.Skipf("skipping blabla")
 	tests := []struct {
 		Description    string
 		InitialState   map[string]string

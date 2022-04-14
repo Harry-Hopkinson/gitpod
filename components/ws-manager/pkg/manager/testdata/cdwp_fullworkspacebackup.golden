@@ -35,8 +35,7 @@
                 "seccomp.security.alpha.kubernetes.io/pod": "localhost/workspace-default"
             },
             "finalizers": [
-                "gitpod.io/finalizer",
-                "gitpod.io/donotdelete"
+                "gitpod.io/finalizer"
             ]
         },
         "spec": {

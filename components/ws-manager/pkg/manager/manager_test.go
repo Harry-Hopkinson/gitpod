@@ -53,7 +53,6 @@ func TestValidateStartWorkspaceRequest(t *testing.T) {
 }
 
 func TestControlPort(t *testing.T) {
-	t.Skipf("skipping blabla")
 	type fixture struct {
 		PortsService *corev1.Service        `json:"portsService,omitempty"`
 		Request      api.ControlPortRequest `json:"request"`
@@ -181,7 +180,6 @@ func TestGetWorkspaces(t *testing.T) {
 }
 
 func TestFindWorkspacePod(t *testing.T) {
-	t.Skipf("skipping blabla")
 	type tpd struct {
 		WorkspaceID string
 		Type        api.WorkspaceType

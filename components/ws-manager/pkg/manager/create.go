@@ -455,7 +455,7 @@ func (m *Manager) createDefiniteWorkspacePod(startContext *startWorkspaceContext
 			Namespace:   m.Config.Namespace,
 			Labels:      labels,
 			Annotations: annotations,
-			Finalizers:  []string{"gitpod.io/finalizer", "gitpod.io/donotdelete"},
+			Finalizers:  []string{"gitpod.io/finalizer"},
 		},
 		Spec: corev1.PodSpec{
 			Hostname:                     req.Metadata.MetaId,
