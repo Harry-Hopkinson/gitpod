@@ -27,19 +27,28 @@ func TestServer_StartStop(t *testing.T) {
 	require.NoError(t, srv.Close())
 }
 
-func TestServer_ServesReady(t *testing.T) {
-	srv := baseserver.NewForTests(t)
+func TestServer_ServesHealthEndpoints(t *testing.T) {
+	for _, scenario := range []struct {
+		name     string
+		endpoint string
+	}{
+		{name: "ready endpoint", endpoint: "/ready"},
+		{name: "live endpoint", endpoint: "/live"},
+	} {
+		t.Run(scenario.name, func(t *testing.T) {
+			srv := baseserver.NewForTests(t)
 
-	go func(t *testing.T) {
-		require.NoError(t, srv.ListenAndServe())
-	}(t)
+			go func(t *testing.T) {
+				require.NoError(t, srv.ListenAndServe())
+			}(t)
 
-	baseserver.WaitForServerToBeReachable(t, srv, 3*time.Second)
+			baseserver.WaitForServerToBeReachable(t, srv, 3*time.Second)
 
-	readyUR := fmt.Sprintf("%s/ready", srv.HTTPAddress())
-	resp, err := http.Get(readyUR)
-	require.NoError(t, err)
-	require.Equal(t, http.StatusOK, resp.StatusCode)
+			resp, err := http.Get(srv.HTTPAddress() + scenario.endpoint)
+			require.NoError(t, err)
+			require.Equal(t, http.StatusOK, resp.StatusCode)
+		})
+	}
 }
 
 func TestServer_ServesMetricsEndpointWithDefaultConfig(t *testing.T) {
