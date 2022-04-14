@@ -6,7 +6,6 @@ package public_api_server
 import (
 	"github.com/gitpod-io/gitpod/installer/pkg/cluster"
 	"github.com/gitpod-io/gitpod/installer/pkg/common"
-	"github.com/gitpod-io/gitpod/installer/pkg/config/v1/experimental"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
@@ -81,19 +80,4 @@ func deployment(ctx *common.RenderContext) ([]runtime.Object, error) {
 			},
 		},
 	}, nil
-}
-
-func getExperimentalPublicAPIConfig(ctx *common.RenderContext) *experimental.PublicAPIConfig {
-	var experimentalCfg *experimental.Config
-
-	_ = ctx.WithExperimental(func(ucfg *experimental.Config) error {
-		experimentalCfg = ucfg
-		return nil
-	})
-
-	if experimentalCfg == nil || experimentalCfg.WebApp == nil || experimentalCfg.WebApp.PublicAPI == nil {
-		return nil
-	}
-
-	return experimentalCfg.WebApp.PublicAPI
 }
