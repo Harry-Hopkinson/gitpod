@@ -4,7 +4,6 @@
 package public_api_server
 
 import (
-	"github.com/gitpod-io/gitpod/common-go/log"
 	"github.com/gitpod-io/gitpod/installer/pkg/cluster"
 	"github.com/gitpod-io/gitpod/installer/pkg/common"
 	"github.com/gitpod-io/gitpod/installer/pkg/config/v1/experimental"
@@ -18,12 +17,6 @@ import (
 )
 
 func deployment(ctx *common.RenderContext) ([]runtime.Object, error) {
-	publicAPIConfig := getExperimentalPublicAPIConfig(ctx)
-	if publicAPIConfig == nil {
-		return nil, nil
-	}
-	log.Debug("Detected experimental.WebApp.PublicApi configuration", publicAPIConfig)
-
 	labels := common.DefaultLabels(Component)
 	return []runtime.Object{
 		&appsv1.Deployment{

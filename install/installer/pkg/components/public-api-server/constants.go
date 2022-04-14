@@ -7,5 +7,6 @@ package public_api_server
 const (
 	Component     = "public-api-server"
 	ContainerPort = 9000
+	ServicePort   = 9000
 	PortName      = "http"
 )

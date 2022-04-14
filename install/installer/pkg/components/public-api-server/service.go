@@ -6,11 +6,14 @@ import (
 )
 
 func service(ctx *common.RenderContext) ([]runtime.Object, error) {
+	if cfg := getExperimentalPublicAPIConfig(ctx); cfg == nil {
+		return nil, nil
+	}
 
 	return common.GenerateService(Component, map[string]common.ServicePort{
 		PortName: {
 			ContainerPort: ContainerPort,
 			ServicePort:   ServicePort,
 		},
-	}), nil
+	})(ctx)
 }
