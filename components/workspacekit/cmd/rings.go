@@ -416,11 +416,12 @@ var ring1Cmd = &cobra.Command{
 			log.WithError(err).Error("cannot mount proc")
 			return
 		}
+
 		_, err = client.EvacuateCGroup(ctx, &daemonapi.EvacuateCGroupRequest{})
 		if err != nil {
 			client.Close()
 			log.WithError(err).Error("cannot evacuate cgroup")
-			return
+			//return
 		}
 		client.Close()
 
