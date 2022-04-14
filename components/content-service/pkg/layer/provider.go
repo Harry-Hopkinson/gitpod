@@ -318,7 +318,6 @@ func (s *Provider) GetContentLayerPVC(ctx context.Context, owner, workspaceID st
 		span.LogKV("initializer", "Git")
 
 		cdesc, err := executor.Prepare(initializer, nil)
-		log.Infof("executor.Prepare: %v, %v", cdesc, err)
 		if err != nil {
 			return nil, nil, err
 		}
