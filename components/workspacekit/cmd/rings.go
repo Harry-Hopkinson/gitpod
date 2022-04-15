@@ -421,7 +421,7 @@ var ring1Cmd = &cobra.Command{
 		if err != nil {
 			client.Close()
 			log.WithError(err).Error("cannot evacuate cgroup")
-			//return
+			return
 		}
 		client.Close()
 
